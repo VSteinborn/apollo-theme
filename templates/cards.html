@@ -88,11 +88,14 @@
                                                                                 text="GitHub",
                                                                                 icon="github") }}
                                     {% endif %}
-                                    {% if page.extra.demo %}
-                                        {{ components::icon_button(href=page.extra.demo,
-                                                                                text="Demo",
+                                    {% if page.extra.web %}
+                                        {{ components::icon_button(href=page.extra.web,
+                                                                                text="Web",
                                                                                 icon="globe") }}
                                     {% endif %}
+                                    {%- if page.date %}
+                                        {{ components::icon_button(href="#", text=page.date | date(format="%B, %Y") , icon="calendar", disabled=true, icon_path="icons/") }}
+                                    {% endif -%}
                                 </div>
                             {% endif %}
 

@@ -15,6 +15,8 @@
                     {% set video_link = page.permalink | safe %}
                 {% endif %}
 
+                {% if page.extra.video  %}
+                
                 <a class="talk-video"
                    href="{{ video_link }}"
                    target="_blank"
@@ -52,6 +54,17 @@
 
                     </div>
                 </a>
+                
+                
+                {% elif page.extra.image  %}
+                        {% set image = resize_image(path=page.extra.image, width=480, height=270, format="webp") %}
+                        <img class="talk-image"
+                            alt="Placeholder image for the talk"
+                            src="{{ image.url }}" />
+                
+                {% else %}
+                <!-- do nothing-->
+                {% endif %}
 
                 <div class="talk-info">
                     <h1 class="talk-title">
@@ -59,8 +72,10 @@
                             <a href={{ page.extra.link_to }}>{{ page.title }}</a>
                         {% elif page.extra.video.link %}
                             <a href={{ page.extra.video.link }}>{{ page.title }}</a>
-                        {% else %}
+                        {% elif page.content %}
                             <a href={{ page.permalink | safe }}>{{ page.title }}</a>
+                        {% else %}
+                            {{ page.title }}
                         {% endif %}
 
                     </h1>
@@ -77,11 +92,11 @@
 
                     <div class="meta">
                         {%- if page.date %}
-                            {{ components::icon_button(href="#", text=page.date | date(format="%B %d, %Y") , icon="calendar", disabled=true, icon_path="icons/") }}
+                            {{ components::icon_button(href="#", text=page.date | date(format="%B, %Y") , icon="calendar", disabled=true, icon_path="icons/") }}
                         {% endif -%}
 
-                        {% if page.extra.organizer.name and page.extra.organizer.link %}
-                            {{ components::icon_button(href=page.extra.organizer.link, text=page.extra.organizer.name, icon="map-pin", icon_path="icons/") }}
+                        {% if page.extra.organizer %}
+                            {{ components::icon_button(href="#", text=page.extra.organizer, icon="map-pin", disabled=true, icon_path="icons/") }}
                         {% endif %}
 
                         {% if page.extra.slides %}
@@ -91,7 +106,15 @@
                         {% if page.extra.code %}
                             {{ components::icon_button(href=page.extra.code, text="Code", icon="code", icon_path="icons/") }}
                         {% endif %}
-
+                        
+                        {% if page.extra.paper %}
+                            {{ components::icon_button(href=page.extra.paper, text="Paper", icon="pdf", icon_path="icons/") }}
+                        {% endif %}
+                        {% if page.extra.web %}
+                            {{ components::icon_button(href=page.extra.web,
+                                text="Web",
+                                icon="globe") }}
+                        {% endif %}
                         {% if page.draft %}
                             <span class="draft-label">DRAFT</span>
                         {% endif %}

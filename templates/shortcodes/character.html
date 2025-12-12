@@ -1,4 +1,4 @@
-{% set character_name = name | default(value="hooded") %}
+{% set character_name = name | default(value="pineapple") %}
 {% set character_text = body | default(value="") %}
 {% set character_type = type | default(value="comment") %}
 {% set character_position = position | default(value="right") %}
@@ -16,6 +16,11 @@
                  alt="hooded"
                  width="80"
                  height="80" />
+        {% elif character_name == "pineapple" %}
+            <img src="{{ get_url(path = 'images/characters/pineapple.png') }}"
+                alt="pineapple"
+                width="80"
+                height="80" />   
         {% else %}
             {{ character_name }}
         {% endif %}
